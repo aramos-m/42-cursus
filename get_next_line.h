@@ -20,9 +20,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# include <stdio.h>
+
+int     ft_strlen(const char *s);
 int     ft_line_break(char *backup);
 char    *ft_strjoin(char const *s1, char const *s2);
-int     ft_strlen(const char *s);
 char    *get_next_line(int fd);
 
 #endif

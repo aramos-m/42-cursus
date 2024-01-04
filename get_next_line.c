@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-void    ft_read_buffer(int fd, char *backup)
+char *ft_read_buffer(int fd, char *backup)
 {
     char    *buffer;
     int     read_byte;
@@ -23,18 +23,36 @@ void    ft_read_buffer(int fd, char *backup)
     {
         buffer = malloc(sizeof(char)*(BUFFER_SIZE + 1));
         if (!buffer)
-            return ;
+            return (NULL);
         read_byte = read(fd, buffer, BUFFER_SIZE);
-        aux = backup;
-        backup = ft_strjoin(buffer, backup);
-        free(aux);
-        free(buffer);
+        if (read_byte <= 0)
+            free(buffer);
+        buffer[read_byte] = '\0';
+        printf("leo: %s    ", buffer);
+        if (!backup)
+            backup = buffer;
+        else
+        {
+            aux = backup;
+            backup = ft_strjoin(backup, buffer);
+            free(aux);
+            free(buffer);
+        }
+        //printf("guardado: %s   ", backup);
     }
-    buffer[read_byte] = '\0';
+    //backup[read_byte + 1] = '\0';
+    //printf("buckup : %s\n", backup);
+    return (backup);
 
 }
 
 char    *get_next_line(int fd)
 {
+    char        *gnl;
     static char *backup;
+
+    backup = ft_read_buffer(fd, backup);
+    //printf("Sali\n");
+
+    return (backup);
 }

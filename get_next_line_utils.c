@@ -12,11 +12,23 @@
 
 #include "get_next_line.h"
 
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
 int ft_line_break(char *backup)
 {
     int i;
 
     i = 0;
+	if (!backup)
+		return (0);
     while(backup[i])
     {
         if(backup[i] == '\n')
@@ -50,14 +62,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		scat[j++] = s2[i++];
 	scat[j] = '\0';
 	return (scat);
-}
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
