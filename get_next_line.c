@@ -12,15 +12,29 @@
 
 #include "get_next_line.h"
 
-char    *get_next_line(int fd)
+void    ft_read_buffer(int fd, char *backup)
 {
     char    *buffer;
     int     read_byte;
+    char    *aux;
+    
+    aux = NULL;
+    while(!ft_line_break(backup))
+    {
+        buffer = malloc(sizeof(char)*(BUFFER_SIZE + 1));
+        if (!buffer)
+            return ;
+        read_byte = read(fd, buffer, BUFFER_SIZE);
+        aux = backup;
+        backup = ft_strjoin(buffer, backup);
+        free(aux);
+        free(buffer);
+    }
+    buffer[read_byte] = '\0';
 
-    buffer = malloc(sizeof(char)*(BUFFER_SIZE + 1));
+}
 
-    read_byte = read(fd, buffer, BUFFER_SIZE);
-    buffer[read_byte + 1] = '\0';
-
-    return(buffer);
+char    *get_next_line(int fd)
+{
+    static char *backup;
 }
