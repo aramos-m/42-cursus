@@ -26,6 +26,32 @@ int ft_line_break(char *backup)
     return (0);
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*scat;
+	int		i;
+	int		j;
+	int		lens1;
+	int		lens2;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	lens1 = ft_strlen(s1);
+	lens2 = ft_strlen(s2);
+	scat = malloc(lens1 + lens2 + 1);
+	if (!scat)
+		return (NULL);
+	while (s1[i])
+		scat[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		scat[j++] = s2[i++];
+	scat[j] = '\0';
+	return (scat);
+}
+
 int	ft_strlen(const char *s)
 {
 	int	i;
@@ -34,63 +60,4 @@ int	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
-}
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	j;
-	int		result;
-
-	if (dstsize == 0)
-		return (ft_strlen(src));
-	if (dstsize <= (size_t)ft_strlen(dst))
-		return (dstsize + (size_t)ft_strlen(src));
-	j = 0;
-	i = ft_strlen(dst);
-	while (src[j] != '\0' && i + 1 < dstsize)
-	{
-		dst[i] = src[j];
-		++i;
-		++j;
-	}
-	dst[i] = '\0';
-	result = (ft_strlen(dst) + ft_strlen(&src[j]));
-	return ((size_t)result);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-
-	i = 0;
-	if (dstsize == 0)
-	{
-		while (src[i])
-			i++;
-		return (i);
-	}
-	while ((i < dstsize - 1) && src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	if (i < dstsize)
-		dst[i] = '\0';
-	while (src[i] != '\0')
-		i++;
-	return (i);
-}
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*scat;
-
-	if (!s1 || !s2)
-		return (NULL);
-	scat = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (scat == NULL)
-		return (NULL);
-	ft_strlcpy(scat, s1, (size_t)ft_strlen(s1) + 1);
-	ft_strlcat(scat, s2, ft_strlen (s1) + ft_strlen(s2) + 1);
-	return (scat);
 }
