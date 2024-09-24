@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 19:37:03 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/09/24 21:31:11 by aramos-m         ###   ########.fr       */
+/*   Created: 2024/09/24 21:09:36 by aramos-m          #+#    #+#             */
+/*   Updated: 2024/09/24 21:29:41 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,26 @@ t_list	*ft_lstnew(void *content)
 	return (new_node);
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!new)
+	if (!lst)
 		return ;
-	new->next = *lst;
-	*lst = new;
-}
-
-int	ft_lstsize(t_list *lst)
-{
-	int	len;
-
-	len = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		len++;
-	}
-	return (len);
+	del(lst->content);
+	free(lst);
 }
 
 int	main(void)
 {
 	t_list	*a;
-	t_list	*b;
+	char	*cont;
 
-	a = ft_lstnew("Ana");
-	b = ft_lstnew("Soy");
-	ft_lstadd_front(&a, b);
-	printf("%s %s\n %d\n", b->content, b->next->content, ft_lstsize(a));
+	cont = malloc(4);
+	cont[0] = 'A';
+	cont[1] = 'n';
+	cont[2] = 'a';
+	cont[3] = 0;
+	a = ft_lstnew(cont);
+	printf("%s\n", cont);
+	ft_lstdelone(a, free);
+	printf("%s\n", cont);
 }
