@@ -6,38 +6,11 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:37:03 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/09/24 21:31:11 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:45:18 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	if (!new)
-		return ;
-	new->next = *lst;
-	*lst = new;
-}
+#include "libft.h"
 
 int	ft_lstsize(t_list *lst)
 {
@@ -52,7 +25,7 @@ int	ft_lstsize(t_list *lst)
 	return (len);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	t_list	*a;
 	t_list	*b;
@@ -61,4 +34,4 @@ int	main(void)
 	b = ft_lstnew("Soy");
 	ft_lstadd_front(&a, b);
 	printf("%s %s\n %d\n", b->content, b->next->content, ft_lstsize(a));
-}
+}*/

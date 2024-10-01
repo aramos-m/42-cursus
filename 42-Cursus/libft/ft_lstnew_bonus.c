@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aramos-m <aramos-m@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 19:23:36 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/09/19 20:52:17 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:36:03 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+#include "libft.h"
 
 t_list	*ft_lstnew(void *content)
 {
@@ -32,10 +24,10 @@ t_list	*ft_lstnew(void *content)
 	return (new_node);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	t_list	*ptr;
 
 	ptr = ft_lstnew("Hola, soy Ana");
-	printf("%s", (char *)ptr->content);
-}
+	printf("%s", ptr->content);
+}*/
