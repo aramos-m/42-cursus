@@ -14,24 +14,24 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*str;
+	char			*ssub;
 
 	if (!s)
 		return (NULL);
 	if (start > (unsigned int)ft_strlen(s))
 	{
-		str = ft_calloc(sizeof(char), 1);
-		if (!str)
+		ssub = ft_calloc(sizeof(char), 1);
+		if (!ssub)
 			return (NULL);
 	}
 	else
 	{
 		if (len > (size_t)ft_strlen(s + start))
 			len = (unsigned int)ft_strlen(s + start);
-		str = ft_calloc(sizeof(char), len + 1);
-		if (!str)
+		ssub = ft_calloc(sizeof(char), len + 1);
+		if (!ssub)
 			return (NULL);
-		ft_memmove(str, s + start, len);
+		ft_memmove(ssub, s + start, len);
 	}
-	return (str);
+	return (ssub);
 }
