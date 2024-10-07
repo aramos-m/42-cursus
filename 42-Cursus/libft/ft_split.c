@@ -12,27 +12,23 @@
 
 #include "libft.h"
 
-static char	*ft_divide(char const *s, char rule, int *k)
+static char	*divide(char const *s, char c, int *pos)
 {
 	int		i;
 	int		j;
 	char	*split;
 
-	i = *k;
+	i = *pos;
 	j = 0;
-	while (s[i] && s[i] != rule)
+	while (s[i] && s[i] != c)
 		i++;
-	split = ft_calloc(sizeof(char), (i - *k + 1));
-	i = *k;
-	if (split == NULL)
+	split = ft_calloc(sizeof(char), (i - *pos + 1));
+	if (!split)
 		return (NULL);
-	while (s[i] != rule && s[i] != '\0')
-	{
-		split[j] = s[i];
-		j++;
-		i++;
-	}
-	*k = i;
+	i = *pos;
+	while (s[i] && s[i] != c)
+		split[j++] = s[i++];
+	*pos = i;
 	split[j] = '\0';
 	return (split);
 }
@@ -42,12 +38,10 @@ int	count_word(char const *s, char c)
 	int	i;
 	int	word;
 
-	word = 0;
 	i = 0;
+	word = 0;
 	while (s[i] && s[i] == c)
-	{
 		i++;
-	}
 	while (s[i])
 	{
 		word ++;
@@ -59,7 +53,7 @@ int	count_word(char const *s, char c)
 	return (word);
 }
 
-static void	ft_free_result(char **result, int i)
+static void	free_result(char **result, int i)
 {
 	while (i > 0)
 	{
@@ -77,19 +71,19 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	j = 0;
 	i = count_word(s, c);
+	j = 0;
 	result = ft_calloc(sizeof(char *), (i + 1));
-	i = 0;
-	if (result == NULL)
+	if (!result)
 		return (NULL);
+	i = 0;
 	while (s[j])
 	{
 		if (s[j] != c)
 		{
-			result[i] = ft_divide(s, c, &j);
+			result[i] = divide(s, c, &j);
 			if (!result[i++])
-				return (ft_free_result(result, i), NULL);
+				return (free_result(result, i), NULL);
 		}
 		else
 			j++;
