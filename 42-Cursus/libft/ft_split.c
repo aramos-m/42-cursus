@@ -29,7 +29,6 @@ static char	*divide(char const *s, char c, int *pos)
 	while (s[i] && s[i] != c)
 		split[j++] = s[i++];
 	*pos = i;
-	split[j] = '\0';
 	return (split);
 }
 
@@ -88,6 +87,5 @@ char	**ft_split(char const *s, char c)
 		else
 			j++;
 	}
-	result[i] = NULL;
 	return (result);
 }
