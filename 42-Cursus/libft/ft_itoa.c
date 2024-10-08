@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aramos-m <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:22:54 by aramos-m          #+#    #+#             */
-/*   Updated: 2023/11/21 21:45:13 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:25:07 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_nbrlen(int n)
+static int	count_digit(int n)
 {
 	int	len;
 
@@ -24,20 +24,20 @@ static int	ft_nbrlen(int n)
 	}
 	while (n != 0)
 	{
-		n = n / 10;
+		n /= 10;
 		len++;
 	}
 	return (len);
 }
 
-static void	ft_convert(int n, char *nbr, int i)
+static void	fill_snumber(int n, char *snumber, int i)
 {
-	nbr[i] = '\0';
+	snumber[i] = '\0';
 	while (n != 0)
 	{
-		if (nbr[i] != '-')
+		if (snumber[i] != '-')
 		{
-			nbr[i - 1] = (n % 10) + '0';
+			snumber[i - 1] = (n % 10) + '0';
 			n /= 10;
 		}
 		i--;
@@ -46,22 +46,22 @@ static void	ft_convert(int n, char *nbr, int i)
 
 char	*ft_itoa(int n)
 {
-	char	*nbr;
+	char	*snumber;
 	int		i;
 
-	i = ft_nbrlen(n);
+	i = count_digit(n);
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	else if (n == 0)
 		return (ft_strdup("0"));
-	nbr = (char *)malloc(sizeof(char) * (i + 1));
-	if (nbr == NULL)
+	snumber = (char *)malloc(sizeof(char) * (i + 1));
+	if (!snumber)
 		return (NULL);
 	if (n < 0)
 	{
-		nbr[0] = '-';
+		snumber[0] = '-';
 		n *= -1;
 	}
-	ft_convert(n, nbr, i);
-	return (nbr);
+	fill_snumber(n, snumber, i);
+	return (snumber);
 }
