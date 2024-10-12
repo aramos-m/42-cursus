@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main_general.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aramos-m <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:04:25 by aramos-m          #+#    #+#             */
-/*   Updated: 2023/11/21 21:54:05 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:36:05 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.c>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "libft.h"
 
-char	funcionrara(unsigned int i, char c)
+char	toupper_even1(unsigned int i, char c)
 {
-	(void)	i;
-	return (c + 1);
+	if (i % 2 == 0)
+		return(ft_toupper(c));
+	return (c);
 }
 
-void	funcionrara2(unsigned int i, char *c)
+void	toupper_even2(unsigned int i, char *s)
 {
-	(void) i;
-	*c = ft_toupper(*c);
+	if (i % 2 == 0)
+		*s = ft_toupper(*s);
+	return ;
 }
 
 int main(void)
@@ -201,23 +199,24 @@ int main(void)
 	printf("\n");
 
 	printf("Esta es la función STRJOIN:\n");
-	char const	*s1 = "lorem ipsum";
-	char const	*s2 = "dolor sit amet";
+	char const	*s1 = "Supercalifragilistico";
+	char const	*s2 = "expialidoso";
 	printf("%s\n", ft_strjoin(s1, s2));
 	printf("\n");
 
 	printf("Esta es la función SPLIT:\n");
-	char const s[] = "Hola/Ana,///¿qué tal?";
-	char **split = ft_split(s, rule);
-	char rule = 'i';
-	int	i = 0;
-	while (split[i])
+	char	s[] = "Hola me llamo Ana";
+	char	c = ' ';
+	char	**result = ft_split(s, c);
+
+	int		i = 0;
+	while (result[i])
 	{
-        printf("Fila %d: %s\n", i + 1, split[i]);
-        free(split[i]);
+		printf("Fila %d: %s\n", i + 1, result[i]);
+		free(result[i]);
 		i++;
 	}
-	free(split);
+	free(result);
 	printf("\n");
 
 	printf("Esta es la función ITOA:\n");
@@ -226,24 +225,27 @@ int main(void)
 	printf("\n");
 
 	printf("Esta es la función STRMAPI:\n");
-	char	*QQ = "Hola";
-	char	*RR;
-	RR = ft_strmapi(QQ, &funcionrara);
-	printf("%s\n", RR);
+	char	*s = "hola soy ana";
+	char	*result;
+	result = ft_strmapi(s, &toupper_even1);
+	printf("%s\n", result);
 	printf("\n");
 
 	printf("Esta es la función STRITERI:\n");
-	char	SS[] = "hello world";
-	ft_striteri(SS, funcionrara2);
-	printf("%s\n", SS);
+	char	*s = "hola soy ana";
+	printf("%s\n", ft_striteri(s, &toupper_even2));
 	printf("\n");
 
 	printf("Esta es la función PUTCHAR_FD:\n");
-	ft_putchar_fd('A', 1);
-	printf("\n");
+	ft_putstr_fd('A', 1);
+	printf("\n\n");
 
 	printf("Esta es la función PUTSTR_FD:\n");
-	ft_putstr_fd("Hola soy Ana", 1);
+	int		fd;
+
+	fd = open("putchar_test.txt", O_WRONLY | O_CREAT, 0600);
+	ft_putstr_fd("Hola, soy Ana", fd);
+	close(fd);
 	printf("\n\n");
 
 	printf("Esta es la función PUTENDL_FD:\n");
