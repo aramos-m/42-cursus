@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 21:50:28 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/02 20:57:10 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/13 13:50:52 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,3 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	else
 		*lst = new;
 }
-
-/*int main(void)
-{
-	t_list	*a;
-	t_list	*b;
-	
-	a = ft_lstnew("Soy");
-	b = ft_lstnew("Ana");
-	ft_lstadd_back(&a, b);
-	printf("%s %s", a->content, a->next->content);
-}*/

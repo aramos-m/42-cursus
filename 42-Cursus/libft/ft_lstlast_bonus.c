@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 21:45:52 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/02 20:22:02 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/13 13:36:03 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,3 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	return (lst);
 }
-
-/*int	main(void)
-{
-	t_list	*a;
-	t_list	*b;
-
-	a = ft_lstnew("Ana");
-	b = ft_lstnew("Soy");
-	ft_lstadd_front(&a, b);
-	printf("%s %s\n last lst: %s", b->content, b->next->content, ft_lstlast(b));
-}*/

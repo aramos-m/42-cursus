@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 19:23:36 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/01 21:36:03 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:51:16 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,3 @@ t_list	*ft_lstnew(void *content)
 	new_node->next = NULL;
 	return (new_node);
 }
-
-/*int	main(void)
-{
-	t_list	*ptr;
-
-	ptr = ft_lstnew("Hola, soy Ana");
-	printf("%s", ptr->content);
-}*/
