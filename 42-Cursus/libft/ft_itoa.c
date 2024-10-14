@@ -49,11 +49,11 @@ char	*ft_itoa(int n)
 	char	*snumber;
 	int		i;
 
-	i = count_digit(n);
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	else if (n == 0)
 		return (ft_strdup("0"));
+	i = count_digit(n);
 	snumber = (char *)malloc(sizeof(char) * (i + 1));
 	if (!snumber)
 		return (NULL);
