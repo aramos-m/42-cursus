@@ -255,35 +255,4 @@ int main(void)
 	printf("Esta es la función PUTNBR_FD:\n");
 	ft_putnbr_fd(-456, 1);
 	printf("\n\n");
-
-	/*BONUS PART*/
-	printf("Esta es la función LSTNEW:\n");
-	t_list	*new_node;
-	new_node = ft_lstnew("Hola, soy Ana");
-	printf("%s", new_node->content);
-	printf("\n");
-
-	printf("Esta es la función LSTADD_FRONT:\n");
-	t_list	*a, *b;
-	a = ft_lstnew("Ana");
-	b = ft_lstnew("Soy");
-	ft_lstadd_front(&a, b);
-	printf("%s %s\n", b->content, b->next->content);
-	printf("\n");
-
-	printf("Esta es la función LSTSIZE:\n");
-	t_list	*a, *b;
-	a = ft_lstnew("Ana");
-	b = ft_lstnew("Soy");
-	ft_lstadd_front(&a, b);
-	printf("%d\n", ft_lstsize(a));
-	printf("\n");
-
-	printf("Esta es la función LSTLAST:\n");
-	t_list	*a, *b;
-	a = ft_lstnew("Ana");
-	b = ft_lstnew("Soy");
-	ft_lstadd_front(&a, b);
-	printf("%s\n", ft_lstlast(b)->content);
-	printf("\n");
 }
