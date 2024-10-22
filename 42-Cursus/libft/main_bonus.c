@@ -59,16 +59,16 @@ int main(void)
 	ft_lstadd_front(&a, b);
 	printf("%s\n", ft_lstlast(b)->content);
 	printf('\n');
-
-    printf("Esta es la función LSTADD_BACK:\n");
-    t_list	*a, *b;
+	
+	printf("Esta es la función LSTADD_BACK:\n");
+	t_list	*a, *b;
 	a = ft_lstnew("Soy");
 	b = ft_lstnew("Ana");
 	ft_lstadd_back(&a, b);
 	printf("%s %s", a->content, a->next->content);
-    printf('\n');
-
-    printf("Esta es la función LSTDELONE:\n");
+	printf('\n');
+	
+	printf("Esta es la función LSTDELONE:\n");
 	t_list	*a;
 	char	*cont;
 	cont = malloc(4);
@@ -81,10 +81,10 @@ int main(void)
 	ft_lstdelone(a, free);
 	if (a->content != "Ana")
 		printf("Nodo eliminado");
-    printf('\n');
-
-    printf("Esta es la función LSTCLEAR:\n");
-    t_list	*a, *b;
+	printf('\n');
+	
+	printf("Esta es la función LSTCLEAR:\n");
+	t_list	*a, *b;
 	char	*cont1, *cont2;
 	cont1 = malloc(4);
 	cont1[0] = 'A';
@@ -101,11 +101,11 @@ int main(void)
 	a->next = b;
 	printf("Content A: %s\nContent B: %s\n", a->content, a->next->content);
 	ft_lstclear(&a, free);
-    printf("%p\n", a);
-    printf('\n');
-
-    printf("Esta es la función LSTITER:\n");
-    t_list	*a, *b;
+	printf("%p\n", a);
+	printf('\n');
+	
+	printf("Esta es la función LSTITER:\n");
+	t_list	*a, *b;
 	int		*cont1, *cont2;
 	cont1 = malloc(sizeof(int *) * 1);
 	cont2 = malloc(sizeof(int *) * 1);
@@ -117,9 +117,9 @@ int main(void)
 	printf("Content A: %d\nContent B: %d\n", *(int *)a->content, *(int *)b->content);
 	ft_lstiter(a, ft_double1);
 	printf("Content A: %d\nContent B: %d\n", *(int *)a->content, *(int *)b->content);
-
-    printf("Esta es la función LSTMAP:\n");
-    t_list	*a, *b, *result;
+	
+	printf("Esta es la función LSTMAP:\n");
+	t_list	*a, *b, *result;
 	int		*cont1, *cont2;
 	cont1 = malloc(sizeof(int *) *1);
 	cont2 = malloc(sizeof(int *) *1);
