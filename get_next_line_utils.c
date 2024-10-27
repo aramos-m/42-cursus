@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aramos-m <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 01:30:52 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/01/04 01:30:55 by aramos-m         ###   ########.fr       */
+/*   Created: 2024/10/27 15:14:16 by aramos-m          #+#    #+#             */
+/*   Updated: 2024/10/27 20:50:08 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,39 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-int ft_line_break(char *backup)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-    int i;
+	size_t	i;
+	size_t	j;
+	int		result;
 
-    i = 0;
-	if (!backup)
-		return (0);
-    while(backup[i])
-    {
-        if(backup[i] == '\n')
-            return (1);
-        i++;
-    }
-    return (0);
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	if (dstsize <= (size_t)ft_strlen(dst))
+		return (dstsize + (size_t)ft_strlen(src));
+	j = 0;
+	i = ft_strlen(dst);
+	while (src[j] != '\0' && i + 1 < dstsize)
+		dst[i++] = src[j++];
+	dst[i] = '\0';
+	result = (ft_strlen(dst) + ft_strlen(&src[j]));
+	return ((size_t)result);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_strrchr(const char *s, int c)
 {
-	char	*scat;
-	int		i;
-	int		j;
-	int		lens1;
-	int		lens2;
+	size_t	i; 
+	size_t	j;
 
-	i = 0;
 	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
-	scat = malloc(lens1 + lens2 + 1);
-	if (!scat)
-		return (NULL);
-	while (s1[i])
-		scat[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		scat[j++] = s2[i++];
-	scat[j] = '\0';
-	return (scat);
+	i = ft_strlen(s);
+	while (i > 0)
+	{
+		if (s[i] == (unsigned char) c)
+			j = i;
+		i--;
+	}
+	if (s[i] == (unsigned char) c)
+		j = i;
+	return (j);
 }

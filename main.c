@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aramos-m <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 01:41:34 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/01/04 01:42:48 by aramos-m         ###   ########.fr       */
+/*   Created: 2024/09/03 19:59:26 by aramos-m          #+#    #+#             */
+/*   Updated: 2024/10/27 20:10:27 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
 
-int	main ()
+int	main(void)
 {
-    int fd;
-    char *gnl;
+	int		fd;
+	char	*buffer;
+	size_t	count;
 
-    fd = open("aramos-m.txt",O_RDONLY);
-    gnl = get_next_line(fd);
-
-    printf("%s\n", gnl);
-
-    return 0;
+	fd = open("./aramos-m.txt", O_RDONLY);
+	buffer = get_next_line(fd);
+	printf("%s", buffer);
 }
