@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:14:16 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/27 20:50:08 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:26:33 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,14 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 int	ft_strrchr(const char *s, int c)
 {
-	size_t	i; 
-	size_t	j;
+	size_t 	pos;
 
-	j = 0;
-	i = ft_strlen(s);
-	while (i > 0)
+	pos = 0;
+	while (s[pos])
 	{
-		if (s[i] == (unsigned char) c)
-			j = i;
-		i--;
+		if (s[pos] == c)
+			return (pos);
+		pos++;
 	}
-	if (s[i] == (unsigned char) c)
-		j = i;
-	return (j);
+	return (-1);
 }
