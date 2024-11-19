@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:16:23 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/27 21:03:55 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:44:52 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # include <unistd.h>
 
 int		ft_strlen(const char *s);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-int		ft_strrchr(const char *s, int c);
+void	*ft_memmove(void *dest, const void *src, size_t n);
 char	*get_next_line(int fd);
 
 #endif

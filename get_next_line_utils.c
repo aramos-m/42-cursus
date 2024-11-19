@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:14:16 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/29 22:26:33 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:45:04 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,28 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	size_t	j;
-	int		result;
+	size_t		i;
+	char		*auxdest;
+	char const	*auxsrc;
 
-	if (dstsize == 0)
-		return (ft_strlen(src));
-	if (dstsize <= (size_t)ft_strlen(dst))
-		return (dstsize + (size_t)ft_strlen(src));
-	j = 0;
-	i = ft_strlen(dst);
-	while (src[j] != '\0' && i + 1 < dstsize)
-		dst[i++] = src[j++];
-	dst[i] = '\0';
-	result = (ft_strlen(dst) + ft_strlen(&src[j]));
-	return ((size_t)result);
-}
-
-int	ft_strrchr(const char *s, int c)
-{
-	size_t 	pos;
-
-	pos = 0;
-	while (s[pos])
+	auxdest = dest;
+	auxsrc = src;
+	if (dest > src)
 	{
-		if (s[pos] == c)
-			return (pos);
-		pos++;
+		i = n;
+		while (i--)
+			auxdest[i] = auxsrc[i];
 	}
-	return (-1);
+	else if (dest < src)
+	{
+		i = 0;
+		while (i < n)
+		{
+			auxdest[i] = auxsrc[i];
+			i++;
+		}
+	}
+	return (dest);
 }
