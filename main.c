@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:59:26 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/11/24 20:01:24 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:29:21 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	main(int argc, char **argv)
 	int		fd[argc];
 	char	*buffer;
 	size_t	count;
-	int		i;
+	int		i, oargc;
 
+	oargc = argc;
 	buffer = 1;
 	if (argc < 2)
 		return (0);
@@ -31,7 +32,7 @@ int	main(int argc, char **argv)
 	}
 	while (argc > 1)
 	{
-		if (i >= argc)
+		if (i >= oargc)
 			i = 1;
 		if (fd[i] >= 0)
 		{

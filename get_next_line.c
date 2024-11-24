@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:09:50 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/11/24 19:50:39 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:29:48 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*resize_buf(char *buf, ssize_t bytesread)
 {
 	char	*result;
 
-	result = malloc(bytesread + BUFFER_SIZE + 2);
+	result = ft_calloc(bytesread + BUFFER_SIZE + 2, 1);
 	if (!result)
 		return (NULL);
 	ft_memmove(result, buf, bytesread);
@@ -28,14 +28,13 @@ char	*divide_line(char *buf, ssize_t pos, char **nextread, ssize_t bytesread)
 {
 	char	*readedline;
 
-	readedline = malloc(pos + 2);
+	readedline = ft_calloc(pos + 2, 1);
 	if (!readedline)
 		return (NULL);
 	ft_memmove(readedline, buf, pos + 1);
-	readedline[pos + 1] = '\0';
 	if (pos + 1 != bytesread)
 	{
-		*nextread = malloc(bytesread - pos);
+		*nextread = ft_calloc(bytesread - pos, 1);
 		ft_memmove(*nextread, &buf[pos + 1], bytesread - pos);
 	}
 	free (buf);
@@ -55,7 +54,6 @@ char	*check_line(char **nextread, char *buf, ssize_t bytesread, int fd)
 		{
 			buf = resize_buf(buf, bytesread);
 			bytesread += read(fd, &buf[pos], BUFFER_SIZE);
-			buf[bytesread] = '\0';
 		}
 	}
 	return (buf);
