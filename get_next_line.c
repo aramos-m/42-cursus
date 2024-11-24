@@ -5,96 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 20:21:01 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/10/29 22:26:32 by aramos-m         ###   ########.fr       */
+/*   Created: 2024/11/10 20:09:50 by aramos-m          #+#    #+#             */
+/*   Updated: 2024/11/24 15:59:29 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*resize_malloc(char *s, size_t bytes_r)
+char    *resize_buffer(char *buffer, ssize_t bytesread)
 {
-	char	*result;
+	char    *result;
 
-	result = malloc(bytes_r + 1);
+	result = malloc(bytesread + BUFFER_SIZE + 2);
 	if (!result)
 		return (NULL);
-	result[0] = '\0';
-	if (s)
-	{
-		ft_strlcat(result, s, bytes_r);
-		free(s);
-	}
+	ft_memmove(result, buffer, bytesread);
+	free(buffer);
 	return (result);
 }
 
-char	*split(size_t b_read, char *result, char **buffer, size_t pos)
+char	*divide_line(char *buffer, ssize_t pos, char **nextread, ssize_t bytesread) //Función para extraer frases
 {
-	char	*next_r;
-
-	next_r = 0;
-	*buffer = malloc(pos + 2);
-	*buffer[0] = '\0';
-	ft_strlcat(*buffer, result, pos + 2);
-	if (b_read != pos + 1)
-		next_r = malloc(b_read - pos);
-	if (!next_r)
-		return (NULL);	
-	next_r[0] = '\0';
-	ft_strlcat(next_r, &result[pos + 1], BUFFER_SIZE - pos);
-	free (result);
-	return (next_r);
-}
-
-char	*check_next_r(char **next_r, size_t *bytes_r, char *res, int fd)
-{
-	char	*buffer;
-
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);	
-	if (!*next_r)
+	char    *readedline;
+	
+	readedline = malloc(pos + 2); //Extraemos la línea y lo almacenamos en readedline
+	if (!readedline)
+		return (NULL);
+	ft_memmove(readedline, buffer, pos + 1);
+	readedline[pos + 1] = '\0';
+	if (pos + 1 != bytesread)
 	{
-		*bytes_r += read(fd, buffer, BUFFER_SIZE);
-		buffer[BUFFER_SIZE] = '\0';
-
-		res = resize_malloc(res, *bytes_r);
-		if (!res)
-			return (NULL);
-		ft_strlcat(res, buffer, *bytes_r + 1);
-	}
-	else
-	{
-		res = *next_r;
-		*next_r = 0;
+		*nextread = malloc(bytesread - pos); //Guardamos el resto de la lectura en nextread
+		ft_memmove(*nextread, &buffer[pos + 1], bytesread - pos);
 	}
 	free (buffer);
-	return (res);
+	return (readedline);
+}
+
+char	*check_line(char **nextread, char *buffer, ssize_t bytesread, int fd)
+{
+	ssize_t	i;
+	
+	i = 0;
+	while (i < bytesread)
+	{
+		if (buffer[i] == '\n')
+			return (divide_line(buffer, i, nextread, bytesread)); // Devolver lo que retorne la función de separar frases
+		else if (++i == bytesread)
+		{
+			buffer = resize_buffer(buffer, bytesread);
+			bytesread += read(fd, &buffer[i], BUFFER_SIZE); //Pasa el punto de la lectura en el que se quedó.
+			buffer[bytesread] = '\0';
+		}
+	}
+	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	char		*res;
-	size_t		bytes_r;
-	static char	*next_r[4096];
-	size_t		old_bytes_r;
-
-	res = 0;
-	bytes_r = 0;
-	if (BUFFER_SIZE <= 0)
+	static char	*nextread;
+	ssize_t		bytesread;
+	
+	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647 || fd < 0 || fd > 4096)
 		return (NULL);
-	while (1)
+	if (!nextread)
 	{
-		old_bytes_r = bytes_r;
-		res = check_next_r(&next_r[fd], &bytes_r, res, fd);
-		if (ft_strrchr(res, '\n') >= 0)
+		buffer = malloc(BUFFER_SIZE + 2);
+		if (!buffer)
+			return (NULL);
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		if (bytesread <= 0)
 		{
-			next_r[fd] = split(bytes_r, res, &buffer, ft_strrchr(res, '\n'));
-			return (buffer);
+			free(buffer);
+			return (NULL);
 		}
-		if (old_bytes_r == bytes_r)
-			break ;
+		buffer[bytesread] = '\0';
 	}
-	return (0);
+	else
+	{
+		buffer = nextread;
+		bytesread = ft_strlen(buffer);
+		nextread = 0;
+	}
+	return (check_line(&nextread, buffer, bytesread, fd));
 }
