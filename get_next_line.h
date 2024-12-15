@@ -6,12 +6,16 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:16:23 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/11/24 18:51:28 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/12/15 19:52:54 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
 # include <fcntl.h>
 # include <stdint.h>
 # include <stdio.h>

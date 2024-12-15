@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:36:23 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/11/24 20:36:41 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:00:56 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*resize_buf(char *buf, ssize_t bytesread)
 {
 	char	*result;
 
-	result = ft_calloc(bytesread + BUFFER_SIZE + 2, 1);
+	result = ft_calloc(bytesread + BUFFER_SIZE + 1, 1);
 	if (!result)
 		return (NULL);
 	ft_memmove(result, buf, bytesread);
@@ -26,19 +26,19 @@ char	*resize_buf(char *buf, ssize_t bytesread)
 
 char	*divide_line(char *buf, ssize_t pos, char **nextread, ssize_t bytesread)
 {
-	char	*readedline;
+	char	*readline;
 
-	readedline = ft_calloc(pos + 2, 1);
-	if (!readedline)
+	readline = ft_calloc(pos + 2, 1);
+	if (!readline)
 		return (NULL);
-	ft_memmove(readedline, buf, pos + 1);
+	ft_memmove(readline, buf, pos + 1);
 	if (pos + 1 != bytesread)
 	{
 		*nextread = ft_calloc(bytesread - pos, 1);
 		ft_memmove(*nextread, &buf[pos + 1], bytesread - pos);
 	}
 	free (buf);
-	return (readedline);
+	return (readline);
 }
 
 char	*check_line(char **nextread, char *buf, ssize_t bytesread, int fd)
