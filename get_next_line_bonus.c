@@ -6,11 +6,11 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:36:23 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/12/15 20:00:56 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:07:23 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*resize_buf(char *buf, ssize_t bytesread)
 {
@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 	static char	*nextread[4096];
 	ssize_t		bytesread;
 
-	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647 || fd < 0 || fd > 4096)
+	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647 || fd < 0 || fd > 4095)
 		return (NULL);
 	if (!nextread[fd])
 	{

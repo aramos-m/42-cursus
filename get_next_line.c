@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:09:50 by aramos-m          #+#    #+#             */
-/*   Updated: 2024/12/15 20:00:50 by aramos-m         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:55:35 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ char	*get_next_line(int fd)
 	static char	*nextread[4096];
 	ssize_t		bytesread;
 
-	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647 || fd < 0 || fd > 4096)
+	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > 2147483647 || fd < 0 || fd > 4095)
 		return (NULL);
 	if (!nextread[fd])
 	{
-		buf = ft_calloc(BUFFER_SIZE + 2, 1);
+		buf = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!buf)
 			return (NULL);
 		bytesread = read(fd, buf, BUFFER_SIZE);
