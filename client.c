@@ -6,7 +6,7 @@
 /*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:53:10 by aramos-m          #+#    #+#             */
-/*   Updated: 2025/05/14 21:54:52 by aramos-m         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:57:53 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
-#include <stdlib.h> // atoi
+#include <stdlib.h>
 
 void char_to_bin(pid_t pid, char* msg)
 {
@@ -24,19 +24,24 @@ void char_to_bin(pid_t pid, char* msg)
     i = 0;
     while(msg[i])
     {
-        printf("%c\n", msg[i]);
         count = 0;
         while(count < 8)
         {
-            printf("%i\n", count);
             if(msg[i] & (1 << count))
                 kill(pid, SIGUSR1);
             else
                 kill(pid, SIGUSR2);
             count++;
-            usleep(1000);
+            usleep(500);
         }
         i++;
+    }
+    count = 0;
+    while(count < 8)
+    {
+        kill(pid, SIGUSR2);
+        count++;
+        usleep(500);
     }
 }
 
