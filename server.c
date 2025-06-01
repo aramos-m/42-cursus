@@ -6,50 +6,59 @@
 /*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:50:53 by aramos-m          #+#    #+#             */
-/*   Updated: 2025/05/20 23:47:26 by aramos-m         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:22:30 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <signal.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <signal.h>
 
 #define BUF_SIZE 100
 
 struct s_msg{
 	char	bin_to_char;
-	int		count;
+	int		bin_count;
 	char	*buf_sigusr;
 	int		buf_count;
 }t_msg;
 
+void	ft_putnbr(long nbr)
+{
+	char	tmp;
+
+	if (nbr / 10 > 0)
+		ft_putnbr(nbr / 10);
+	tmp = nbr % 10 + '0';
+	write(1, &tmp, 1);
+}
+
 char	*resize_buffer(void)
 {
-	char	*tmp_buf;
+	char	*new_buf;
 	int		i;
 
 	i = 0;
-	tmp_buf = malloc(t_msg.buf_count + BUF_SIZE);
-	if (!tmp_buf)
+	new_buf = malloc(t_msg.buf_count + BUF_SIZE);
+	if (!new_buf)
 		return (NULL);
 	while (i != t_msg.buf_count)
 	{
-		tmp_buf[i] = t_msg.buf_sigusr[i];
+		new_buf[i] = t_msg.buf_sigusr[i];
 		i++;
 	}
 	free(t_msg.buf_sigusr);
-	return (tmp_buf);
+	return (new_buf);
 }
 
 /* SIGUSR1 =  10; SIGUSR2 = 12 */
 void	handler_sigusr(int sig)
 {
 	if (sig == 10)
-		t_msg.bin_to_char = t_msg.bin_to_char ^ (1 << t_msg.count);
-	t_msg.count++;
-	if (t_msg.count > 7)
+		t_msg.bin_to_char = t_msg.bin_to_char ^ (1 << t_msg.bin_count);
+	t_msg.bin_count++;
+	if (t_msg.bin_count > 7)
 	{
 		t_msg.buf_sigusr[t_msg.buf_count] = t_msg.bin_to_char;
 		t_msg.buf_count++;
@@ -62,25 +71,25 @@ void	handler_sigusr(int sig)
 		}
 		else if (t_msg.buf_count % BUF_SIZE == 0)
 			t_msg.buf_sigusr = resize_buffer();
-		t_msg.count = 0;
+		t_msg.bin_count = 0;
 		t_msg.bin_to_char = 0;
 	}
 }
 
 int	main(void)
 {
-	pid_t				servidor;
 	struct sigaction	act;
 
-	servidor = getpid();
 	t_msg.buf_sigusr = malloc(BUF_SIZE);
 	if (!t_msg.buf_sigusr)
-		return (0);
-	printf("%d\n", servidor);
+		return (1);
 	act.sa_handler = handler_sigusr;
 	sigaction(SIGUSR1, &act, NULL);
 	act.sa_handler = handler_sigusr;
 	sigaction(SIGUSR2, &act, NULL);
+	write(1, "El servidor está activo. Su PID es: ", 37);
+	ft_putnbr(getpid());
+	write(1, "\n", 1);
 	while (1)
 		;
 	return (0);
