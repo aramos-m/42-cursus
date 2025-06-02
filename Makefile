@@ -23,19 +23,28 @@ SRCS_CLIENT = client.c
 OBJS_SERVER = $(SRCS_SERVER:.c=.o)
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
 
-all: $(NAME_SERVER) $(NAME_CLIENT)
+LIBFT_DIR	= libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-$(NAME_SERVER): $(OBJS_SERVER)
-	$(CC) $(CFLAGS) $(OBJS_SERVER) -o $(NAME_SERVER)
+all: $(LIBFT) $(NAME_SERVER) $(NAME_CLIENT)
 
-$(NAME_CLIENT): $(OBJS_CLIENT)
-	$(CC) $(CFLAGS) $(OBJS_CLIENT) -o $(NAME_CLIENT)
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR) bonus
+
+$(NAME_SERVER): $(OBJS_SERVER) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT) -o $(NAME_SERVER)
+
+$(NAME_CLIENT): $(OBJS_CLIENT) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT) -o $(NAME_CLIENT)
 
 clean:
 	$(RM) $(OBJS_SERVER) $(OBJS_CLIENT)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <signal.h>
+#include "libft/libft.h"
 
 #define BUF_SIZE 100
 
@@ -23,16 +24,6 @@ struct s_msg{
 	char	*buf_sigusr;
 	int		buf_count;
 }t_msg;
-
-void	ft_putnbr(long nbr)
-{
-	char	tmp;
-
-	if (nbr / 10 > 0)
-		ft_putnbr(nbr / 10);
-	tmp = nbr % 10 + '0';
-	write(1, &tmp, 1);
-}
 
 char	*resize_buffer(void)
 {
@@ -85,10 +76,9 @@ int	main(void)
 		return (1);
 	act.sa_handler = handler_sigusr;
 	sigaction(SIGUSR1, &act, NULL);
-	act.sa_handler = handler_sigusr;
 	sigaction(SIGUSR2, &act, NULL);
 	write(1, "El servidor está activo. Su PID es: ", 37);
-	ft_putnbr(getpid());
+	ft_putnbr_fd(getpid(), 1);
 	write(1, "\n", 1);
 	while (1)
 		;

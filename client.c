@@ -12,36 +12,11 @@
 
 #include <unistd.h>
 #include <signal.h>
-
-int	ft_atoi(const char *str)
-{
-	int	nbr;
-	int	sign;
-	int	i;
-
-	nbr = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == 32 || (str[i] > 8 && str[i] < 14))
-		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
-	{
-		sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nbr = nbr * 10 + (str[i] - '0');
-		i++;
-	}
-	return (nbr * sign);
-}
+#include "libft/libft.h"
 
 void char_to_bin(pid_t pid, char* msg)
 {
-    int count;
+    int count ;
     int i;
 
     i = 0;
@@ -70,8 +45,23 @@ void char_to_bin(pid_t pid, char* msg)
 
 int main(int argc, char **argv)
 {
+    int i;
+
+    i = 0;
     if (argc != 3)
+    {
+        write(1, "Error: número de argumentos no válido\n", 40);
         return (1);
+    }
+    while (argv[1][i])
+    {
+        if (!ft_isdigit(argv[1][i]))
+        {
+            write(1, "Error: PID no válido\n", 23);
+            return (1);
+        }
+        i++;
+    }
     char_to_bin(ft_atoi(argv[1]), argv[2]);
     return (0);
 }
