@@ -10,20 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <signal.h>
-#include "libft/libft.h"
-
-#define BUF_SIZE 100
-
-struct s_msg{
-	char	bin_to_char;
-	int		bin_count;
-	char	*buf_sigusr;
-	int		buf_count;
-}t_msg;
+#include "minitalk.h"
 
 char	*resize_buffer(void)
 {
@@ -46,24 +33,30 @@ char	*resize_buffer(void)
 /* SIGUSR1 =  10; SIGUSR2 = 12 */
 void	handler_sigusr(int sig)
 {
-	if (sig == 10)
-		t_msg.bin_to_char = t_msg.bin_to_char ^ (1 << t_msg.bin_count);
-	t_msg.bin_count++;
-	if (t_msg.bin_count > 7)
+	if (!t_msg.buf_sigusr)
 	{
-		t_msg.buf_sigusr[t_msg.buf_count] = t_msg.bin_to_char;
+		t_msg.buf_sigusr = malloc(BUF_SIZE);
+		if (!t_msg.buf_sigusr)
+			return ;
+	}
+	if (sig == 10)
+		t_msg.current_char = t_msg.current_char ^ (1 << t_msg.bit_count);
+	t_msg.bit_count++;
+	if (t_msg.bit_count > 7)
+	{
+		t_msg.buf_sigusr[t_msg.buf_count] = t_msg.current_char;
 		t_msg.buf_count++;
-		if (t_msg.bin_to_char == '\0')
+		if (t_msg.current_char == '\0')
 		{
 			write(1, t_msg.buf_sigusr, t_msg.buf_count);
 			free(t_msg.buf_sigusr);
-			t_msg.buf_sigusr = malloc(BUF_SIZE);
 			t_msg.buf_count = 0;
+			t_msg.buf_sigusr = 0;
 		}
 		else if (t_msg.buf_count % BUF_SIZE == 0)
 			t_msg.buf_sigusr = resize_buffer();
-		t_msg.bin_count = 0;
-		t_msg.bin_to_char = 0;
+		t_msg.bit_count = 0;
+		t_msg.current_char = 0;
 	}
 }
 
@@ -71,9 +64,6 @@ int	main(void)
 {
 	struct sigaction	act;
 
-	t_msg.buf_sigusr = malloc(BUF_SIZE);
-	if (!t_msg.buf_sigusr)
-		return (1);
 	act.sa_handler = handler_sigusr;
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
