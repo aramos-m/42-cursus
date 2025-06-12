@@ -6,27 +6,13 @@
 /*   By: aramos-m <aramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 16:52:19 by aramos-m          #+#    #+#             */
-/*   Updated: 2025/06/11 21:50:53 by aramos-m         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:26:11 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <math.h>
-#include "mlx-linux/mlx.h"
+#include "fractol.h"
 
-# define WIDTH 1080
-# define HEIGHT 1080
-# define MLX_ERROR 1
-
-typedef struct	s_data {
-	void    *mlx;
-    void    *win;
-    void    *img;
-    char    *addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+int key_hook(int key_code, void *param);
 
 // Función para poner un pixel en la imagen
 void	put_pixel(t_data *data, int x, int y, int color)
@@ -55,26 +41,37 @@ int calc_mandelbrot(double cr, double ci, int max_iter)
         zr = tmp;
         i++;
     }
-    return i;
+    return (i);
+}
+
+// Función para elegir el color a pintar
+int get_color(int iter, int max_iter)
+{
+    if (iter == max_iter)
+        return (0x000000);
+    return (0xFFFFFF - (iter * 255 / max_iter) * 0x010101);
 }
 
 // Función para dibujar Mandelbrot
-void    draw_mandelbrot(t_data *img)
+void draw_mandelbrot(t_data *img)
 {
     int x;
     int y;
+    double scale;
 
-    x = 0;
     y = 0;
-    while (x < WIDTH)
+    scale = 3.0 / WIDTH;
+    while (y < HEIGHT)
     {
-        while (y < HEIGHT)
+        x = 0;
+        while (x < WIDTH)
         {
-            printf("%d ", calc_mandelbrot(x, y, 100));
+            double x0 = (x - WIDTH / 2.0) * scale - 0.5;
+            double y0 = (y - HEIGHT / 2.0) * scale;
+            int iter = calc_mandelbrot(x0, y0, MAX_ITER);
+            put_pixel(img, x, y, get_color(iter, MAX_ITER));
             x++;
         }
-        printf("\n");
-        x = 0;
         y++;
     }
 }
@@ -89,8 +86,8 @@ int main(void)
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     draw_mandelbrot(&img);
     mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-    mlx_loop(img.mlx);
-    mlx_destroy_window(img.mlx, img.win);
-    mlx_destroy_display(img.mlx);
-    free(img.mlx);
+    mlx_key_hook(img.win, key_hook, &img);
+    mlx_hook(img.win, ON_DESTROY, 0, close_win, &img);
+    mlx_loop(img.mlx); 
+    return (0);
 }
