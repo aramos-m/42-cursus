@@ -2,6 +2,8 @@
 
 This repository contains all the projects I have completed so far during the **42 Madrid Cursus**.
 
+[![aramos-m's 42 stats](https://badge.mediaplus.ma/darkblue/aramos-m?1337Badge=off&UM6P=off)](https://github.com/oakoudad/badge42)
+
 ---
 
 ## 📂 Projects
