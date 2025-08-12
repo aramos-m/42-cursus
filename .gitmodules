@@ -1,0 +1,4 @@
+[submodule "libft"]
+	path = libft
+	url = https://github.com/aramos-m/42-cursus.git
+	branch = 00-libft
