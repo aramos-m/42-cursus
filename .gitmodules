@@ -1,0 +1,8 @@
+[submodule "libft"]
+	path = libft
+	url = https://github.com/aramos-m/42-cursus.git
+	branch = 00-libft
+[submodule "ft_printf"]
+	path = ft_printf
+	url = https://github.com/aramos-m/42-cursus.git
+	branch = 01-ft_printf
