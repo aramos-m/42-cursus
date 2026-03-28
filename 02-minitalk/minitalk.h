@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
-#include "libft/libft.h"
+#include "../00-libft/libft.h"
 
 #define BUF_SIZE 100
 
