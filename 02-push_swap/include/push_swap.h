@@ -13,8 +13,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include "../00-libft/libft.h"
+# include "../01-ft_printf/ft_printf.h"
 
 // PUSH_SWAP FUNCTION
 t_list	*fill_stack(char **argv);
