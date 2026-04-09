@@ -1,0 +1,36 @@
+# 42 C build artifacts
+*.o
+*.d
+
+# Common local test executable
+a.out
+
+# Project-specific binaries/libraries
+00-libft/libft.a
+01-ft_printf/libftprintf.a
+02-fractol/fractol
+02-minitalk/client
+02-minitalk/server
+02-push_swap/push_swap
+02-push_swap/checker
+03-minishell/minishell
+
+# Common build folders
+**/obj/
+**/objs/
+build/
+
+# Editor/OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Python cache (sometimes used by testers/scripts)
+__pycache__/
+*.pyc
