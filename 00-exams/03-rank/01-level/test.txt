@@ -1,0 +1,48 @@
+Linea 1: Assignment name : broken_GNL
+Linea 2: Expected files  : get_next_line.c get_next_line.h
+Linea 3: Allowed functions : read, free, malloc
+Linea 4: --------------------------------------------------------------------------------
+Linea 5: Repair the function ‘get_next_line’ in the file get_next_line.c, whose prototype should be:
+Linea 6: char *get_next_line(int fd);
+Linea 7: 
+Linea 8: You may need to repair other functions as well.
+Linea 9: 
+Linea 10: Description of the ‘get_next_line’ function:
+Linea 11: 
+Linea 12: Your function must return a line that has been read from the file descriptor
+Linea 13: passed as a parameter.
+Linea 14: 
+Linea 15: A ‘line that has been read’ is defined as a succession of 0 to n characters
+Linea 16: ending with ‘\n’ (ASCII code 0x0a) or with End of File (EOF).
+Linea 17: 
+Linea 18: The line should be returned including the ‘\n’ if there is one at the end
+Linea 19: of the line that has been read.
+Linea 20: 
+Linea 21: When you reach the EOF, you must store the current buffer in a char * and
+Linea 22: return it. If the buffer is empty, you must return NULL.
+Linea 23: 
+Linea 24: In case of an error, return NULL.
+Linea 25: 
+Linea 26: If not returning NULL, the pointer should be freeable.
+Linea 27: 
+Linea 28: Your program will be compiled with the flag -D BUFFER_SIZE=xx, which must be
+Linea 29: used as the buffer size for the read calls in your functions.
+Linea 30: 
+Linea 31: Your function must be free of memory leaks.
+Linea 32: 
+Linea 33: When you reach the EOF, your function should not keep any memory allocated with
+Linea 34: malloc except for the line that has been returned.
+Linea 35: 
+Linea 36: Calling your function get_next_line in a loop will allow you to read
+Linea 37: the text available on a file descriptor one line at a time until the end of the
+Linea 38: text, regardless of the size of the text or any of its lines.
+Linea 39: 
+Linea 40: Make sure that your function behaves correctly when reading from a file, from the
+Linea 41: standard output, from a redirection etc.
+Linea 42: 
+Linea 43: No call to another function will be done on the file descriptor between two calls
+Linea 44: of get_next_line.
+Linea 45: 
+Linea 46: Finally, we consider that get_next_line has undefined behavior when reading
+Linea 47: from a binary file.
+Linea 48: --------------------------------------------------------------------------------
