@@ -57,7 +57,9 @@ int main(int argc, char **argv)
             if (iter == size - 1)
             {
                 printresult(board,size);
-                board[iter] = -1; 
+                if (iter == 0)
+                    return (0);
+                board[iter] = -1;
                 iter--;
             }
             else
