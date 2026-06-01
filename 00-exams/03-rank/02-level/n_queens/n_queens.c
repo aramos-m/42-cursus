@@ -19,7 +19,7 @@ int checkisvalid(int line, int *board)
     return (0);
 }
 
-int printresult(int *board, int size)
+void printresult(int *board, int size)
 {
     int iter = 0;
     while(iter < size)
