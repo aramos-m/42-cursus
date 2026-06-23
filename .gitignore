@@ -14,6 +14,7 @@ a.out
 02-push_swap/push_swap
 02-push_swap/checker
 03-minishell/minishell
+03-philosophers/philo
 
 # Common build folders
 **/obj/
@@ -34,3 +35,9 @@ Thumbs.db
 # Python cache (sometimes used by testers/scripts)
 __pycache__/
 *.pyc
+
+# AI assistant / model files
+CLAUDE.md
+AGENTS.md
+.claude/
+.opencode/
