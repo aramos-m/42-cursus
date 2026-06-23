@@ -6,7 +6,7 @@
 #    By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/19 23:01:07 by aramos-m          #+#    #+#              #
-#    Updated: 2026/06/19 23:01:07 by aramos-m         ###   ########.fr        #
+#    Updated: 2026/06/23 11:12:44 by aramos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,17 @@ CC          = cc
 
 CFLAGS      = -Wall -Wextra -Werror -pthread
 
+INCLUDES    = -Iinclude
+
 RM          = rm -f
 
 ### FUENTES ###
 
-SRCS        = main.c \
-              utils.c
+SRCS        = src/parser.c
 
 OBJS        = $(SRCS:.c=.o)
 
-HEADER      = philo.h
+HEADER      = include/philo.h
 
 ### REGLAS ###
 
@@ -37,7 +38,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
