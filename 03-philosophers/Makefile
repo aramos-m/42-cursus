@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/06/19 23:01:07 by aramos-m          #+#    #+#              #
-#    Updated: 2026/06/23 11:12:44 by aramos-m         ###   ########.fr        #
+#    Created: 2026/06/02 20:12:41 by aramos-m          #+#    #+#              #
+#    Updated: 2026/06/27 22:40:11 by aramos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ RM          = rm -f
 
 ### FUENTES ###
 
-SRCS        = src/parser.c
+SRCS        = src/main.c src/init.c src/routine.c src/monitor.c src/utils.c
 
 OBJS        = $(SRCS:.c=.o)
 
