@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aramos-m <aramos-m@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/23 09:42:46 by aramos-m          #+#    #+#             */
-/*   Updated: 2026/06/23 11:12:44 by aramos-m         ###   ########.fr       */
+/*   Created: 2026/06/03 21:05:19 by aramos-m          #+#    #+#             */
+/*   Updated: 2026/07/01 23:50:34 by aramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,63 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-/*
-** Philosophers messages
-*/
-# define NO_EAT -1 // must_eat == -1 means the optional 5th argument was not provided, so the simulation only ends when a philosopher dies.
-
 typedef struct s_table	t_table;
 
-typedef struct s_philosopher
+/*
+** Philosophers' structure
+**	-id: Philosopher's identifier
+**	-meals: Number of times the philosopher ate
+**	-timestamp: Timestamp od the last time the philosopher ate
+** 	-thread: Pointer to philosopher's thread
+** 	-timelock: Mutex which control access to philosopher's timestamp
+**	-p: Pointer to program's main struct
+*/
+typedef struct s_philo
 {
-	pthread_t		thread;
 	int				id;
-	long			meals_eaten;
-	long			last_meal;
+	int				meals_eaten;
+	long long		last_meal;
+	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_table			*table;
-}	t_philosopher;
+}	t_philo;
 
+/*
+** Table's structure
+**	-nb_philo: Number of philosophers and forks
+**	-time_to_die: Number of ms they can go without food before dying
+**	-time_to_eat: Number of ms they takes to eat
+**	-time_to_sleep: Number of ms they takes to sleep
+**	-must_eat: Number of times all philosophers have to eat (optional)
+*/
 typedef struct s_table
 {
-	long			nb_philos;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	long			must_eat;
-	long			start_time;
+	int				nb_philo;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	int				must_eat;
 	int				stop;
+	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	stop_lock;
 	t_philo			*philos;
 }	t_table;
+
+/* utils.c */
+long long	get_time(void);
+void		smart_sleep(long long ms, t_table *table);
+int			is_stopped(t_table *table);
+void		print_status(t_philo *philo, char *status);
+
+/* init.c */
+int			init_table(t_table *table, int argc, char **argv);
+
+/* routine.c */
+void		*routine(void *arg);
+void		*monitor(void *arg);
 
 #endif
