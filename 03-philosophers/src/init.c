@@ -21,6 +21,8 @@ static int	ft_atoi(const char *str)
 	i = 0;
 	sign = 1;
 	n = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
@@ -44,16 +46,18 @@ static int	parser(int argc, char **argv)
 	while (i < argc)
 	{
 		j = 0;
+		while ((argv[i][j] >= 9 && argv[i][j] <= 13) || argv[i][j] == 32)
+			j++;
 		if (argv[i][j] == '+' || argv[i][j] == '-')
 			j++;
-		if (argv[i][j] == '\0')
+		if (argv[i][j] < '0' || argv[i][j] > '9')
 			return (0);
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (0);
+		while (argv[i][j] >= '0' && argv[i][j] <= '9')
 			j++;
-		}
+		while ((argv[i][j] >= 9 && argv[i][j] <= 13) || argv[i][j] == 32)
+			j++;
+		if (argv[i][j] != '\0')
+			return (0);
 		i++;
 	}
 	return (1);
