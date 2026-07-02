@@ -32,6 +32,8 @@ static int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		n = n * 10 + (str[i] - '0');
+		if (n * sign > INT_MAX || n * sign < INT_MIN)
+			return (-1);
 		i++;
 	}
 	return ((int)(n * sign));
