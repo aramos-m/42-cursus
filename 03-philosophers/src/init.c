@@ -118,6 +118,8 @@ int	init_table(t_table *table, int argc, char **argv)
 		|| table->time_to_eat < 1 || table->time_to_sleep < 1
 		|| (argc == 6 && table->must_eat < 1))
 		return (printf("Error: invalid argument values\n"), 1);
+	if (table->nb_philo > 200)
+		return (printf("Error: philosophers must be 1-200\n"), 1);
 	table->stop = 0;
 	table->start_time = get_time();
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
